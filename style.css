@@ -1,3 +1,94 @@
 :root {
   color: magenta;
+
+  --progress-border-radius: 5px;
+  --progress-active-value: #166fff;
+  --progress-active-background: #dff0ff;
+}
+
+.utio {
+  margin: 0 auto;
+  max-width: 1400px;
+
+  font-family: 'Segue UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  font-size: 14pt;
+
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #fefefe;
+
+  padding: 32px;
+}
+
+.utio-header {
+  font-size: 3em;
+}
+
+.utio-header h1 {
+  font-weight: 700;
+}
+
+.utio-progress {
+  display: block;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  height: 56px;
+
+  border: none;
+  border-radius: var(--progress-border-radius);
+}
+
+.utio-progress {
+  background-color: var(--progress-active-background);
+}
+
+.utio-progress::-webkit-progress-bar {
+  border-radius: var(--progress-border-radius);
+  background-color: var(--progress-active-background);
+}
+
+.utio-progress::-webkit-progress-value {
+  border-radius: var(--progress-border-radius) 0 0 var(--progress-border-radius);
+  background-color: var(--progress-active-value);
+}
+
+.utio-progress::-moz-progress-bar {
+  border-radius: var(--progress-border-radius) 0 0 var(--progress-border-radius);
+  background-color: var(--progress-active-value);
+}
+
+.utio-output {
+  display: block;
+  width: 100%;
+
+  font-size: 1.5em;
+  margin-top: 28px;
+}
+
+.utio-footer {
+  margin-top: 72px;
+  font-size: 1.25em;
+}
+
+.utio-footer p {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.utio-footer a {
+  color: rgba(22, 111, 255, 0.6);
+
+  text-decoration: none;
+}
+
+.utio-footer a:hover {
+  color: rgba(22, 111, 255, 0.8);
+}
+
+.utio-footer a:active {
+  color: rgba(22, 111, 255, 1);
 }
