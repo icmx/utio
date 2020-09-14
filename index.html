@@ -4,24 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
     <script src="main.js"></script>
     <title>utio — your time is over</title>
   </head>
   <body class="utio">
-    <header class="utio-header">
-      <h1>TIME LABEL</h1>
-    </header>
-    <form class="utio-form">
-      <progress class="utio-progress" max="100" value="80"></progress>
-      <output class="utio-output"
-        >2 hours, 15 minutes and 15 seconds left.</output
-      >
-    </form>
-    <footer class="utio-footer">
-      <p>
-        <strong>utio</strong> — your time is over · by
-        <a href="https://github.com/icmx">@icmx</a>
-      </p>
-    </footer>
+    <main class="utio-main">
+      <header class="utio-header" id="utio-header">ᕕ( ᐛ )ᕗ</header>
+      <form class="utio-form">
+        <progress class="utio-progress" id="utio-progress"></progress>
+        <output class="utio-output" id="utio-output">
+          Initialising, please wait...
+        </output>
+      </form>
+      <footer class="utio-footer">
+        <p>
+          <strong>utio</strong> — your time is over ·
+          <span class="utio-nowrap">
+            by <a href="https://github.com/icmx">@icmx</a>
+          </span>
+        </p>
+      </footer>
+    </main>
   </body>
 </html>

@@ -1,32 +1,44 @@
 :root {
-  color: magenta;
+  --progress-border-radius: 0.25rem;
 
-  --progress-border-radius: 5px;
   --progress-active-value: #166fff;
-  --progress-active-background: #dff0ff;
+  --progress-active-background: #d0e9ff;
+
+  --progress-passive-value: #4ee558;
+  --progress-passive-background: #e6fddc;
+
+  --text-main: rgba(0, 0, 0, 0.8);
+  --text-mute: rgba(0, 0, 0, 0.4);
+  --text-background: #fefefe;
 }
 
 .utio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 auto;
   max-width: 1400px;
+  height: 100vh;
 
-  font-family: 'Segue UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 400;
   font-size: 14pt;
 
-  color: rgba(0, 0, 0, 0.8);
-  background-color: #fefefe;
+  color: var(--text-main);
+  background-color: var(--text-background);
+}
 
-  padding: 32px;
+.utio-main {
+  min-height: 60%;
+  padding: 4vh;
 }
 
 .utio-header {
-  font-size: 3em;
-}
-
-.utio-header h1 {
+  font-size: 12vw;
   font-weight: 700;
+
+  margin-bottom: 4rem;
 }
 
 .utio-progress {
@@ -43,52 +55,83 @@
   border-radius: var(--progress-border-radius);
 }
 
-.utio-progress {
-  background-color: var(--progress-active-background);
-}
-
 .utio-progress::-webkit-progress-bar {
   border-radius: var(--progress-border-radius);
-  background-color: var(--progress-active-background);
 }
 
 .utio-progress::-webkit-progress-value {
   border-radius: var(--progress-border-radius) 0 0 var(--progress-border-radius);
-  background-color: var(--progress-active-value);
 }
 
 .utio-progress::-moz-progress-bar {
   border-radius: var(--progress-border-radius) 0 0 var(--progress-border-radius);
+}
+
+/* Coloring */
+
+.utio-progress.utio-progress--active {
+  background-color: var(--progress-active-background);
+}
+
+.utio-progress.utio-progress--passive {
+  background-color: var(--progress-passive-background);
+}
+
+.utio-progress.utio-progress--active::-webkit-progress-bar {
+  background-color: var(--progress-active-background);
+}
+
+.utio-progress.utio-progress--passive::-webkit-progress-bar {
+  background-color: var(--progress-passive-background);
+}
+
+.utio-progress.utio-progress--active::-webkit-progress-value {
   background-color: var(--progress-active-value);
+}
+
+.utio-progress.utio-progress.utio-progress--passive::-webkit-progress-value {
+  background-color: var(--progress-passive-value);
+}
+
+.utio-progress.utio-progress.utio-progress--active::-moz-progress-bar {
+  background-color: var(--progress-active-value);
+}
+
+.utio-progress.utio-progress.utio-progress.utio-progress--passive::-moz-progress-bar {
+  background-color: var(--progress-passive-value);
 }
 
 .utio-output {
   display: block;
   width: 100%;
 
-  font-size: 1.5em;
-  margin-top: 28px;
+  font-size: 1.25em;
+  margin-top: 2rem;
 }
 
 .utio-footer {
-  margin-top: 72px;
-  font-size: 1.25em;
+  margin-top: 4rem;
+  font-size: 1em;
 }
 
-.utio-footer p {
-  color: rgba(0, 0, 0, 0.4);
+.utio-footer {
+  color: var(--text-mute);
 }
 
 .utio-footer a {
-  color: rgba(22, 111, 255, 0.6);
+  color: #73b3ff;
 
   text-decoration: none;
 }
 
 .utio-footer a:hover {
-  color: rgba(22, 111, 255, 0.8);
+  color: #166fff;
 }
 
 .utio-footer a:active {
-  color: rgba(22, 111, 255, 1);
+  color: #ff4c6a;
+}
+
+.utio-nowrap {
+  white-space: nowrap;
 }
