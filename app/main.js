@@ -1,67 +1,7 @@
-const Type = {
-  Before: 0,
-  Passive: 1,
-  Active: 2,
-  After: 3,
-  Hanging: Number.MAX_SAFE_INTEGER,
-};
+import { TimeSpanType } from './symbols/time-span-type.symbols.js';
+import { Schedule } from './classes/schedule.class.js';
 
-class TimePoint {
-  constructor(hour, minutes) {
-    this.date = new Date(
-      /* YYYY */ today.getFullYear(),
-      /*   MM */ today.getMonth(),
-      /*   DD */ today.getDate(),
-      /*   hh */ hour,
-      /*   mm */ minutes,
-      /*   ss */ 0
-    );
-  }
-}
-
-class ScheduleItem {
-  constructor(title, startPoint, endPoint, type) {
-    this.title = title;
-    this.start = startPoint;
-    this.end = endPoint;
-    this.type = type;
-  }
-
-  includes(time) {
-    return time >= this.start.date && time <= this.end.date;
-  }
-}
-
-class Schedule {
-  constructor() {
-    this.items = [];
-  }
-
-  read(config) {
-    config.forEach((item) => {
-      let start = item.start.split(':');
-      let end = item.end.split(':');
-      this.items.push(
-        new ScheduleItem(
-          item.title,
-          new TimePoint(start[0], start[1]),
-          new TimePoint(end[0], end[1]),
-          item.type
-        )
-      );
-    });
-  }
-
-  get first() {
-    return this.items[0];
-  }
-
-  get last() {
-    return this.items[this.items.length - 1];
-  }
-}
-
-let today = new Date();
+import { config } from './config.js';
 
 window.addEventListener('load', function () {
   let progress = document.getElementById('utio-progress');
@@ -86,8 +26,8 @@ window.addEventListener('load', function () {
   function getShortTime(time) {
     let minutes = Math.round(time / 1000 / 60);
 
-    label = getLabel(minutes, 'min.', 'mins.');
-    trailer = getTrailer(0, minutes, 0, ' left');
+    let label = getLabel(minutes, 'min.', 'mins.');
+    let trailer = getTrailer(0, minutes, 0, ' left');
 
     return label + trailer;
   }
@@ -156,37 +96,37 @@ window.addEventListener('load', function () {
 
   function showStatus(status) {
     switch (status.type) {
-      case Type.Hanging:
+      case TimeSpanType.HANGING:
         progress.value = 0;
         header.innerText = '(－ω－) zzZ';
         output.value = "Have a rest! It's not a work time.";
         break;
 
-      case Type.Before:
-        break;
+      // case Type.Before:
+      //   break;
 
-      case Type.Passive:
+      // case Type.Passive:
+      //   progress.max = status.max;
+      //   progress.value = status.value;
+      //   output.value = status.leftFull;
+      //   document.name = `utio — ${status.leftShort} (${status.name})`;
+      //   header.innerText = status.name;
+      //   progress.classList.remove('utio-progress--active');
+      //   progress.classList.add('utio-progress--passive');
+      //   break;
+
+      case TimeSpanType.WORKING:
         progress.max = status.max;
         progress.value = status.value;
         output.value = status.leftFull;
-        document.title = `utio — ${status.leftShort} (${status.title})`;
-        header.innerText = status.title;
-        progress.classList.remove('utio-progress--active');
-        progress.classList.add('utio-progress--passive');
-        break;
-
-      case Type.Active:
-        progress.max = status.max;
-        progress.value = status.value;
-        output.value = status.leftFull;
-        document.title = `utio — ${status.leftShort} (${status.title})`;
-        header.innerText = status.title;
+        document.title = `utio — ${status.leftShort} (${status.name})`;
+        header.innerText = status.name;
         progress.classList.remove('utio-progress--passive');
         progress.classList.add('utio-progress--active');
         break;
 
-      case Type.After:
-        break;
+      // case Type.After:
+      //   break;
 
       default:
         break;
@@ -208,18 +148,18 @@ window.addEventListener('load', function () {
     let status = {
       value: current,
       max: runtime,
-      type: Type.Hanging,
-      title: 'Hanging...',
+      type: TimeSpanType.HANGING,
+      name: 'Hanging...',
       leftFull: dLeftFull,
       leftShort: dLeftShort,
     };
 
     showStatus(status);
 
-    schedule.items.forEach((item) => {
+    schedule.spans.forEach((item) => {
       if (item.includes(now)) {
         status.type = item.type;
-        status.title = item.title;
+        status.name = item.name;
         showStatus(status);
       }
     });
