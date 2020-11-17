@@ -6,7 +6,7 @@ export class TimeSpan {
     this.type = type;
   }
 
-  includes(value) {
-    return this.start <= value && value <= this.end;
+  includes(point) {
+    return this.start <= point && point <= this.end;
   }
 }

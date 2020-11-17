@@ -1,4 +1,4 @@
-import { TimeSpanType } from './symbols/time-span-type.symbols.js';
+import { TimeSpanType as Type } from './symbols/time-span-type.symbols.js';
 import { Schedule } from './classes/schedule.class.js';
 
 import { config } from './config.js';
@@ -96,7 +96,7 @@ window.addEventListener('load', function () {
 
   function showStatus(status) {
     switch (status.type) {
-      case TimeSpanType.HANGING:
+      case Type.HANGING:
         progress.value = 0;
         header.innerText = '(－ω－) zzZ';
         output.value = "Have a rest! It's not a work time.";
@@ -115,7 +115,7 @@ window.addEventListener('load', function () {
       //   progress.classList.add('utio-progress--passive');
       //   break;
 
-      case TimeSpanType.WORKING:
+      case Type.WORKING:
         progress.max = status.max;
         progress.value = status.value;
         output.value = status.leftFull;
@@ -148,7 +148,7 @@ window.addEventListener('load', function () {
     let status = {
       value: current,
       max: runtime,
-      type: TimeSpanType.HANGING,
+      type: Type.HANGING,
       name: 'Hanging...',
       leftFull: dLeftFull,
       leftShort: dLeftShort,
@@ -164,4 +164,15 @@ window.addEventListener('load', function () {
       }
     });
   }, 1000);
+
+  // this should be used later
+  schedule.on('statechange', (e) => {
+    console.log('onstatechange:', e);
+  });
+
+  schedule.on('statuschange', (e) => {
+    console.log('onstatuschange:', e);
+  });
+
+  schedule.run();
 });
