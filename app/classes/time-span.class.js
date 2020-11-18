@@ -1,6 +1,6 @@
 export class TimeSpan {
-  constructor(name, start, end, type) {
-    this.name = name;
+  constructor(title, start, end, type) {
+    this.title = title;
     this.start = start;
     this.end = end;
     this.type = type;
