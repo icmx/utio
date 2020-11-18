@@ -2,50 +2,48 @@ import * as TimeSpanTypes from './symbols/time-span-type.symbols.js';
 
 import { Schedule } from './classes/schedule.class.js';
 import { config } from './config.js';
+import { TimeFormatter } from './classes/time-formatter.class.js';
 
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   const header = document.getElementById('utio-header');
   const progress = document.getElementById('utio-progress');
   const output = document.getElementById('utio-output');
-
-  const applyState = (
-    value,
-    max,
-    title,
-    caption,
-    modifier,
-    fullWords,
-    digits
-  ) => {
-    document.title = `${digits} left. - utio`;
-
-    header.innerText = title;
-
-    progress.classList.value = `utio-progress utio--${modifier}`;
-    progress.value = value;
-    progress.max = max;
-
-    output.value = `${fullWords} left.`;
-  };
 
   let schedule = new Schedule();
   schedule.read(config);
 
   schedule.addEventListener('statechange', (state) => {
-    applyState(
-      state.value,
-      state.max,
-      state.title,
-      state.caption,
-      '',
-      state.fullWordsLeft,
-      state.digitsLeft
-    );
+    if (state.span) {
+      document.title = `${TimeFormatter.getDigits(state.left)} left. (${
+        state.span.title
+      }) - utio`;
+
+      header.innerText = `${state.span.title}`;
+
+      progress.classList.value = `utio-progress utio-progress--${TimeSpanTypes.getCleanValue(
+        state.span.type
+      )}`;
+      progress.value = state.current;
+      progress.max = state.duration;
+
+      output.value = `${TimeFormatter.getFullWords(state.left)} left.`;
+    } else {
+      document.title = 'Rest! - utio';
+
+      header.innerText = '(－ω－) zzZ';
+
+      progress.classList.value = 'utio-progress utio-progress--rest';
+      progress.value = 0;
+      progress.max = 0;
+
+      output.value = 'Have a rest! It is not a work time.';
+    }
   });
 
-  schedule.addEventListener('spanchange', (e) => {
-    // console.log('onspanchange:', e);
-  });
+  // this might be useful for notifications e.g.
+  // schedule.addEventListener('spanchange', (state) => {
+  //   console.log('onspanchange:', e);
+  // });
 
   schedule.run();
 });

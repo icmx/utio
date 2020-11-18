@@ -1,25 +1,21 @@
-function constructMap(...entries) {
+function _constructMap(...entries) {
   let result = new Map();
 
   entries.map(([key, value]) => result.set(key, value));
   return result;
 }
 
-export const UNKNOWN = 'TIME_SPAN_TYPE_UNKNOWN';
 export const BEFORE = 'TIME_SPAN_TYPE_BEFORE';
 export const RUNNING = 'TIME_SPAN_TYPE_RUNNING';
 export const HANGING = 'TIME_SPAN_TYPE_HANGING';
 export const AFTER = 'TIME_SPAN_TYPE_AFTER';
-export const RESTING = 'TIME_SPAN_TYPE_RESTING';
+export const NONE = 'TIME_SPAN_TYPE_NONE';
 
-export const Defaults = constructMap(
-  [
-    UNKNOWN,
-    {
-      title: 'ᕕ( ᐛ )ᕗ',
-      caption: 'Please wait, we\'re almost there...'
-    },
-  ],
+// get 'value' from 'TIME_SPAN_TYPE_value'
+// very rough
+export const getCleanValue = (value) => value.split('_')[3].toLowerCase();
+
+export const values = _constructMap(
   [
     BEFORE,
     {
@@ -49,10 +45,10 @@ export const Defaults = constructMap(
     },
   ],
   [
-    RESTING,
+    NONE,
     {
       title: '(－ω－) zzZ',
-      caption: 'Have a rest! It\'s not a work time.'
+      caption: 'I suppose it\'s not a work time. Have a rest, too!'
     },
   ]
 );

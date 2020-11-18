@@ -1,6 +1,5 @@
 import { TimePoint } from './time-point.class.js';
 import { TimeSpan } from './time-span.class.js';
-import { TimeFormatter } from './time-formatter.class.js';
 
 const EVERY_SECOND = 1000;
 
@@ -43,7 +42,6 @@ export class Schedule {
     let oldState;
     let newState;
 
-    // refactor this later
     setInterval(() => {
       oldState = newState;
       newState = this.state;
@@ -66,36 +64,22 @@ export class Schedule {
 
   get state() {
     const now = Date.now();
-    // const duration = this.end - this.start;
-    // const left = this.end - now;
-    // const current = duration - left;
+
+    const duration = this.end - this.start;
+    const left = this.end - now;
+    const current = duration - left;
+
     const span = this.getSpanByPoint(now);
 
-    const state = new ScheduleState(
-      now,
-      this.start,
-      this.end,
-      span.type,
-      span.title,
-      span.caption
-    );
-
-    return state;
+    return new ScheduleState(current, left, duration, span);
   }
 }
 
 class ScheduleState {
-  constructor(now, start, end, type, title, caption) {
-    const duration = end - start;
-    const left = end - now;
-    const current = duration - left;
-
-    this.value = current;
-    this.max = duration;
-    this.type = type;
-    this.title = title;
-    this.caption = caption;
-    this.fullWordsLeft = TimeFormatter.getFullWords(left);
-    this.digitsLeft = TimeFormatter.getDigits(left);
+  constructor(current, left, duration, span) {
+    this.current = current;
+    this.left = left;
+    this.duration = duration;
+    this.span = span;
   }
 }
