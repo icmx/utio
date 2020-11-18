@@ -6,7 +6,7 @@ const _label = (value, forms) =>
 
 const _pad = (value, size) => value.toString().padStart(size, '0');
 
-export class TimeFormatter {
+export class Formatter {
   static getFullWords(time) {
     const AND = ' and ';
     const COMMA = ', ';

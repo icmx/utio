@@ -1,5 +1,5 @@
-import { TimePoint } from './time-point.class.js';
-import { TimeSpan } from './time-span.class.js';
+import { Point } from './point.class.js';
+import { Span } from './span.class.js';
 
 const EVERY_SECOND = 1000;
 
@@ -13,10 +13,10 @@ export class Schedule {
       const [endHours, endMinutes] = item.end.split(':');
 
       this.spans.push(
-        new TimeSpan(
+        new Span(
           item.title,
-          new TimePoint(startHours, startMinutes),
-          new TimePoint(endHours, endMinutes),
+          new Point(startHours, startMinutes),
+          new Point(endHours, endMinutes),
           item.type
         )
       );

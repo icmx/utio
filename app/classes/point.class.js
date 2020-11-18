@@ -1,4 +1,4 @@
-export class TimePoint {
+export class Point {
   date = new Date();
 
   constructor(hours, minutes) {

@@ -1,4 +1,4 @@
-export class TimeSpan {
+export class Span {
   constructor(title, start, end, type) {
     this.title = title;
     this.start = start;

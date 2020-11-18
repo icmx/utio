@@ -1,8 +1,8 @@
 import * as TimeSpanTypes from './symbols/time-span-type.symbols.js';
 
-import { Schedule } from './classes/schedule.class.js';
+import { Schedule } from './classes/scheduler.class.js';
 import { config } from './config.js';
-import { TimeFormatter } from './classes/time-formatter.class.js';
+import { Formatter } from './classes/formatter.class.js';
 
 window.addEventListener('load', () => {
   const header = document.getElementById('utio-header');
@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
 
   schedule.addEventListener('statechange', (state) => {
     if (state.span) {
-      document.title = `${TimeFormatter.getDigits(state.left)} left. (${
+      document.title = `${Formatter.getDigits(state.left)} left. (${
         state.span.title
       }) - utio`;
 
@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
       progress.value = state.current;
       progress.max = state.duration;
 
-      output.value = `${TimeFormatter.getFullWords(state.left)} left.`;
+      output.value = `${Formatter.getFullWords(state.left)} left.`;
     } else {
       document.title = 'Rest! - utio';
 
