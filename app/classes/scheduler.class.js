@@ -1,9 +1,10 @@
+import { Formatter } from './formatter.class.js';
 import { Point } from './point.class.js';
 import { Span } from './span.class.js';
 
 const EVERY_SECOND = 1000;
 
-export class Schedule {
+export class Scheduler {
   spans = [];
   events = {};
 
@@ -39,6 +40,9 @@ export class Schedule {
   }
 
   run() {
+    // this makes not much sense for now, because state change is
+    // emitting each second entirely
+
     let oldState;
     let newState;
 
@@ -69,16 +73,26 @@ export class Schedule {
     const left = this.end - now;
     const current = duration - left;
 
+    const leftAsDigits = Formatter.getDigits(left);
+    const leftAsFullWords = Formatter.getFullWords(left);
+
     const span = this.getSpanByPoint(now);
 
-    return new ScheduleState(current, left, duration, span);
+    return new SchedulerState(
+      duration,
+      leftAsDigits,
+      leftAsFullWords,
+      current,
+      span
+    );
   }
 }
 
-class ScheduleState {
-  constructor(current, left, duration, span) {
+class SchedulerState {
+  constructor(duration, leftAsDigits, leftAsFullWords, current, span) {
     this.current = current;
-    this.left = left;
+    this.leftAsDigits = leftAsDigits;
+    this.leftAsFullWords = leftAsFullWords;
     this.duration = duration;
     this.span = span;
   }

@@ -1,32 +1,26 @@
-import * as TimeSpanTypes from './symbols/time-span-type.symbols.js';
+import { Scheduler } from './classes/scheduler.class.js';
 
-import { Schedule } from './classes/scheduler.class.js';
 import { config } from './config.js';
-import { Formatter } from './classes/formatter.class.js';
 
 window.addEventListener('load', () => {
   const header = document.getElementById('utio-header');
   const progress = document.getElementById('utio-progress');
   const output = document.getElementById('utio-output');
 
-  let schedule = new Schedule();
-  schedule.read(config);
+  let scheduler = new Scheduler();
+  scheduler.read(config);
 
-  schedule.addEventListener('statechange', (state) => {
+  scheduler.addEventListener('statechange', (state) => {
     if (state.span) {
-      document.title = `${Formatter.getDigits(state.left)} left. (${
-        state.span.title
-      }) - utio`;
+      document.title = `${state.leftAsDigits} left. (${state.span.title}) - utio`;
 
       header.innerText = `${state.span.title}`;
 
-      progress.classList.value = `utio-progress utio-progress--${TimeSpanTypes.getCleanValue(
-        state.span.type
-      )}`;
+      progress.classList.value = `utio-progress utio-progress--${state.span.type.description}`;
       progress.value = state.current;
       progress.max = state.duration;
 
-      output.value = `${Formatter.getFullWords(state.left)} left.`;
+      output.value = `${state.leftAsFullWords} left.`;
     } else {
       document.title = 'Rest! - utio';
 
@@ -41,9 +35,9 @@ window.addEventListener('load', () => {
   });
 
   // this might be useful for notifications e.g.
-  // schedule.addEventListener('spanchange', (state) => {
+  // scheduler.addEventListener('spanchange', (state) => {
   //   console.log('onspanchange:', e);
   // });
 
-  schedule.run();
+  scheduler.run();
 });

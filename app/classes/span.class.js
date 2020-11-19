@@ -1,3 +1,10 @@
+const _makeSymbols = (...values) => {
+  const result = Object.create(null);
+  values.map((value) => (result[value] = Symbol(value.toLowerCase())));
+
+  return result;
+};
+
 export class Span {
   constructor(title, start, end, type) {
     this.title = title;
@@ -10,3 +17,11 @@ export class Span {
     return this.start <= point && point <= this.end;
   }
 }
+
+export const SpanType = _makeSymbols(
+  'BEFORE',
+  'RUNNING',
+  'HANGING',
+  'AFTER',
+  'NONE'
+);
