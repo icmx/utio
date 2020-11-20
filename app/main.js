@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
 
       header.innerText = `${state.span.title}`;
 
-      progress.classList.value = `utio-progress utio-progress--${state.span.type.description}`;
+      progress.className = `utio-progress utio-progress--${state.span.type.description}`;
       progress.value = state.current;
       progress.max = state.duration;
 
@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
 
       header.innerText = '(－ω－) zzZ';
 
-      progress.classList.value = 'utio-progress utio-progress--rest';
+      progress.className = 'utio-progress utio-progress--rest';
       progress.value = 0;
       progress.max = 0;
 

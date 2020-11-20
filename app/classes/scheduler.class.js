@@ -2,7 +2,7 @@ import { Formatter } from './formatter.class.js';
 import { Point } from './point.class.js';
 import { Span } from './span.class.js';
 
-const EVERY_SECOND = 1000;
+const _EVERY_SECOND = 1000;
 
 export class Scheduler {
   spans = [];
@@ -55,7 +55,7 @@ export class Scheduler {
       if (oldState?.type !== newState?.type) {
         this.emit('spanchange', newState);
       }
-    }, EVERY_SECOND);
+    }, _EVERY_SECOND);
   }
 
   get start() {

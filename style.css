@@ -1,15 +1,42 @@
-:root {
+.utio {
   --progress-border-radius: 0.25rem;
+  --font-family: 0;
+  --font-size: 0;
+  --font-weight: 0;
 
-  --progress-active-value: #166fff;
-  --progress-active-background: #d0e9ff;
+  --progress-value--before: #7ed321;
+  --progress-value--running: #12a5ed;
+  --progress-value--hanging: #ffca00;
+  --progress-value--after: #7ed321;
+  --progress-value--rest: transparent;
+}
 
-  --progress-passive-value: #4ee558;
-  --progress-passive-background: #e6fddc;
+@media (prefers-color-scheme: light) {
+  .utio {
+    --text-main: rgba(0, 0, 0, 0.8);
+    --text-mute: rgba(0, 0, 0, 0.2);
+    --text-link: #12a4ed;
+    --text-link-hover: #0b628e;
+    --text-link-active: #f5325b;
 
-  --text-main: rgba(0, 0, 0, 0.8);
-  --text-mute: rgba(0, 0, 0, 0.4);
-  --text-background: #fefefe;
+    --background: rgba(237, 237, 237, 0);
+
+    --progress-bar: rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .utio {
+    --text-main: rgba(255, 255, 255, 0.2);
+    --text-mute: rgba(255, 255, 255, 0.05);
+    --text-link: #1c3b4a;
+    --text-link-hover: #0e1d25;
+    --text-link-active: #880623;
+
+    --background: #0c0c0d;
+
+    --progress-bar: rgba(255, 255, 255, 0.05);
+  }
 }
 
 .utio {
@@ -20,13 +47,14 @@
   max-width: 1400px;
   height: 100vh;
 
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 14pt;
 
   color: var(--text-main);
-  background-color: var(--text-background);
+  background-color: var(--background);
+
+  transition: color 0.15s, background-color 0.15s;
 }
 
 .utio-main {
@@ -67,38 +95,69 @@
   border-radius: var(--progress-border-radius) 0 0 var(--progress-border-radius);
 }
 
-/* Coloring */
-
-.utio-progress.utio-progress--active {
-  background-color: var(--progress-active-background);
+/*/ Coloring - for WebKit ////////////////////////////////////////////*/
+.utio-progress::-webkit-progress-bar {
+  background-color: var(--progress-bar);
 }
 
-.utio-progress.utio-progress--passive {
-  background-color: var(--progress-passive-background);
+.utio-progress.utio-progress--before::-webkit-progress-value {
+  background-color: var(--progress-value--before);
 }
 
-.utio-progress.utio-progress--active::-webkit-progress-bar {
-  background-color: var(--progress-active-background);
+.utio-progress.utio-progress--running::-webkit-progress-value {
+  background-color: var(--progress-value--running);
 }
 
-.utio-progress.utio-progress--passive::-webkit-progress-bar {
-  background-color: var(--progress-passive-background);
+.utio-progress.utio-progress--hanging::-webkit-progress-value {
+  background-color: var(--progress-value--hanging);
 }
 
-.utio-progress.utio-progress--active::-webkit-progress-value {
-  background-color: var(--progress-active-value);
+.utio-progress.utio-progress--after::-webkit-progress-value {
+  background-color: var(--progress-value--after);
 }
 
-.utio-progress.utio-progress.utio-progress--passive::-webkit-progress-value {
-  background-color: var(--progress-passive-value);
+.utio-progress.utio-progress--rest::-webkit-progress-value {
+  background-color: var(--progress-value--rest);
 }
 
-.utio-progress.utio-progress.utio-progress--active::-moz-progress-bar {
-  background-color: var(--progress-active-value);
+/*/ Coloring - for Mozilla ///////////////////////////////////////////*/
+.utio-progress {
+  background-color: var(--progress-bar);
 }
 
-.utio-progress.utio-progress.utio-progress.utio-progress--passive::-moz-progress-bar {
-  background-color: var(--progress-passive-value);
+.utio-progress.utio-progress--before::-moz-progress-bar {
+  background-color: var(--progress-value--before);
+}
+
+.utio-progress.utio-progress--running::-moz-progress-bar {
+  background-color: var(--progress-value--running);
+}
+
+.utio-progress.utio-progress--hanging::-moz-progress-bar {
+  background-color: var(--progress-value--hanging);
+}
+
+.utio-progress.utio-progress--after::-moz-progress-bar {
+  background-color: var(--progress-value--after);
+}
+
+.utio-progress.utio-progress--rest::-moz-progress-bar {
+  background-color: var(--progress-value--rest);
+}
+
+.utio-link {
+  color: var(--text-link);
+
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.utio-link:hover {
+  color: var(--text-link-hover);
+}
+
+.utio-link:active {
+  color: var(--text-link-active);
 }
 
 .utio-output {
@@ -116,20 +175,6 @@
 
 .utio-footer {
   color: var(--text-mute);
-}
-
-.utio-footer a {
-  color: #73b3ff;
-
-  text-decoration: none;
-}
-
-.utio-footer a:hover {
-  color: #166fff;
-}
-
-.utio-footer a:active {
-  color: #ff4c6a;
 }
 
 .utio-nowrap {
