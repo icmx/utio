@@ -10,13 +10,13 @@ window.addEventListener('load', () => {
   let scheduler = new Scheduler();
   scheduler.read(config);
 
-  scheduler.addEventListener('statechange', (state) => {
+  scheduler.addEventListener('timechange', (state) => {
     if (state.span) {
       document.title = `${state.leftAsDigits} left. (${state.span.title}) - utio`;
 
       header.innerText = `${state.span.title}`;
 
-      progress.className = `utio-progress utio-progress--${state.span.type.description}`;
+      progress.className = `utio-progress utio-progress--${state.span.type}`;
       progress.value = state.current;
       progress.max = state.duration;
 
@@ -33,11 +33,6 @@ window.addEventListener('load', () => {
       output.value = 'Have a rest! It is not a work time.';
     }
   });
-
-  // this might be useful for notifications e.g.
-  // scheduler.addEventListener('spanchange', (state) => {
-  //   console.log('onspanchange:', e);
-  // });
 
   scheduler.run();
 });

@@ -4,16 +4,26 @@ import { Span } from './span.class.js';
 
 const _EVERY_SECOND = 1000;
 
+export const SchedulerEventTypes = Object.freeze([
+  'timechange',
+  'remindspanchange',
+  'spanchange',
+]);
+
 export class Scheduler {
-  spans = [];
-  events = {};
+  _events = {};
+  _spans = [];
+
+  _emit(type, ...args) {
+    this._events[type].forEach((listener) => listener(...args));
+  }
 
   read(config) {
-    config.forEach((item) => {
+    config.spans.forEach((item) => {
       const [startHours, startMinutes] = item.start.split(':');
       const [endHours, endMinutes] = item.end.split(':');
 
-      this.spans.push(
+      this._spans.push(
         new Span(
           item.title,
           new Point(startHours, startMinutes),
@@ -25,18 +35,14 @@ export class Scheduler {
   }
 
   addEventListener(type, listener) {
-    this.events[type] = this.events[type] || [];
-    this.events[type].push(listener);
-  }
-
-  emit(type, ...args) {
-    if (this.events[type]) {
-      this.events[type].forEach((listener) => listener(...args));
+    if (SchedulerEventTypes.includes(type)) {
+      this._events[type] = this._events[type] || [];
+      this._events[type].push(listener);
     }
   }
 
   getSpanByPoint(point) {
-    return this.spans.find((span) => span.includes(point));
+    return this._spans.find((span) => span.includes(point));
   }
 
   run() {
@@ -50,20 +56,20 @@ export class Scheduler {
       oldState = newState;
       newState = this.state;
 
-      this.emit('statechange', newState);
+      this._emit('timechange', newState);
 
       if (oldState?.type !== newState?.type) {
-        this.emit('spanchange', newState);
+        this._emit('spanchange', newState);
       }
     }, _EVERY_SECOND);
   }
 
   get start() {
-    return this.spans[0].start;
+    return this._spans[0].start;
   }
 
   get end() {
-    return this.spans[this.spans.length - 1].end;
+    return this._spans[this._spans.length - 1].end;
   }
 
   get state() {
