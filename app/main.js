@@ -1,5 +1,6 @@
 import { Formatter } from './classes/formatter.class.js';
 import { Scheduler } from './classes/scheduler.class.js';
+import { Notifier } from './classes/notifier.class.js';
 
 // this should be fetched I suppose
 import { config } from './config.js';
@@ -12,9 +13,7 @@ let scheduler = new Scheduler();
 scheduler.read(config);
 
 scheduler.addEventListener('timechange', (state) => {
-  document.title = `${Formatter.getDigits(state.scheduleLeft)} (${
-    state.span.title
-  }) - utio`;
+  document.title = `${Formatter.getDigits(state.scheduleLeft)} - utio`;
 
   progress.value = state.scheduleCurrent;
   progress.max = state.scheduleDuration;
@@ -25,8 +24,9 @@ scheduler.addEventListener('timechange', (state) => {
 });
 
 scheduler.addEventListener('remindspanchange', (state) => {
-  // notifications goes here
-  console.log('Remind before span changes.');
+  Notifier.show(`${state.span.title} will end soon!`, {
+    body: `It's ${Formatter.getFullWords(state.spanLeft)} before its ends.`,
+  });
 });
 
 scheduler.addEventListener('spanchange', (state) => {

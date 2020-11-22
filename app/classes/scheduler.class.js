@@ -101,7 +101,7 @@ export class Scheduler {
         // it can't be compared directly because of milliseconds little
         // difference
 
-        this._emit('spanchange', newState);
+        this._emit('remindspanchange', newState);
       }
 
       if (oldState.span.type !== newState.span.type) {
