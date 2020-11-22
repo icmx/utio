@@ -13,29 +13,25 @@
 
 @media (prefers-color-scheme: light) {
   .utio {
-    --text-main: rgba(0, 0, 0, 0.8);
-    --text-mute: rgba(0, 0, 0, 0.2);
-    --text-link: #12a4ed;
-    --text-link-hover: #0b628e;
-    --text-link-active: #f5325b;
+    --text-main: #000000;
+    --text-mute: #606060;
+    --text-link: #065fd4;
 
-    --background: rgba(237, 237, 237, 0);
+    --background: #f9f9f9;
 
-    --progress-bar: rgba(0, 0, 0, 0.05);
+    --progress-bar: #cccccc;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .utio {
-    --text-main: rgba(255, 255, 255, 0.2);
-    --text-mute: rgba(255, 255, 255, 0.05);
-    --text-link: #1c3b4a;
-    --text-link-hover: #0e1d25;
-    --text-link-active: #880623;
+    --text-main: #606060;
+    --text-mute: #303030;
+    --text-link: #3ea6ff;
 
-    --background: #0c0c0d;
+    --background: #181818;
 
-    --progress-bar: rgba(255, 255, 255, 0.05);
+    --progress-bar: #303030;
   }
 }
 
@@ -150,14 +146,6 @@
 
   text-decoration: none;
   transition: color 0.15s;
-}
-
-.utio-link:hover {
-  color: var(--text-link-hover);
-}
-
-.utio-link:active {
-  color: var(--text-link-active);
 }
 
 .utio-output {

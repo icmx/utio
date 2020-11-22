@@ -14,7 +14,9 @@ export class Span {
     this.type = SpanTypes.includes(type) ? type : undefined;
   }
 
-  includes(point) {
-    return this.start <= point && point <= this.end;
+  static rest = Object.freeze(new Span('Rest', undefined, undefined, 'rest'));
+
+  includes(time) {
+    return this.start <= time && time <= this.end;
   }
 }

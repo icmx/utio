@@ -1,6 +1,5 @@
-import { Formatter } from './formatter.class.js';
-import { Point } from './point.class.js';
 import { Span } from './span.class.js';
+import { Time } from './time.class.js';
 
 const _EVERY_SECOND = 1000;
 
@@ -13,9 +12,43 @@ export const SchedulerEventTypes = Object.freeze([
 export class Scheduler {
   _events = {};
   _spans = [];
+  _remindBefore = 0;
+
+  _start = 0;
+  _end = 0;
 
   _emit(type, ...args) {
+    // Promises here, maybe?
     this._events[type].forEach((listener) => listener(...args));
+  }
+
+  _getSpanByTime(time) {
+    return this._spans.find((span) => span.includes(time)) ?? Span.rest;
+  }
+
+  _getState() {
+    const now = Date.now();
+    const span = this._getSpanByTime(now);
+
+    if (span.type === 'rest') {
+      return new SchedulerState(0, 0, 0, 0, span);
+    } else {
+      const now = Date.now();
+
+      const scheduleDuration = this._end - this._start;
+      const scheduleLeft = this._end - now;
+      const scheduleCurrent = scheduleDuration - scheduleLeft;
+
+      const spanLeft = span.end - now;
+
+      return new SchedulerState(
+        scheduleDuration,
+        scheduleCurrent,
+        scheduleLeft,
+        spanLeft,
+        span
+      );
+    }
   }
 
   read(config) {
@@ -26,12 +59,17 @@ export class Scheduler {
       this._spans.push(
         new Span(
           item.title,
-          new Point(startHours, startMinutes),
-          new Point(endHours, endMinutes),
+          new Time(startHours, startMinutes),
+          new Time(endHours, endMinutes),
           item.type
         )
       );
     });
+
+    this._remindBefore = config.remindBefore * 60 * 1000;
+
+    this._start = this._spans[0].start;
+    this._end = this._spans[this._spans.length - 1].end;
   }
 
   addEventListener(type, listener) {
@@ -41,65 +79,44 @@ export class Scheduler {
     }
   }
 
-  getSpanByPoint(point) {
-    return this._spans.find((span) => span.includes(point));
-  }
-
   run() {
-    // this makes not much sense for now, because state change is
-    // emitting each second entirely
-
     let oldState;
-    let newState;
+    let newState = this._getState();
+    this._emit('spanchange', newState);
+    this._emit('timechange', newState);
+
 
     setInterval(() => {
+      // That's not good enough, maybe multiple setTimeouts will help?
+      // They can trigger avents by timeout, not by infinite ifs.
+
       oldState = newState;
-      newState = this.state;
+      newState = this._getState();
 
-      this._emit('timechange', newState);
+      if (newState.span.type !== 'rest') {
+        this._emit('timechange', newState);
+      }
 
-      if (oldState?.type !== newState?.type) {
+      if (Math.abs(newState.spanLeft - this._remindBefore) < 500) {
+        // it can't be compared directly because of milliseconds little
+        // difference
+
+        this._emit('spanchange', newState);
+      }
+
+      if (oldState.span.type !== newState.span.type) {
         this._emit('spanchange', newState);
       }
     }, _EVERY_SECOND);
   }
-
-  get start() {
-    return this._spans[0].start;
-  }
-
-  get end() {
-    return this._spans[this._spans.length - 1].end;
-  }
-
-  get state() {
-    const now = Date.now();
-
-    const duration = this.end - this.start;
-    const left = this.end - now;
-    const current = duration - left;
-
-    const leftAsDigits = Formatter.getDigits(left);
-    const leftAsFullWords = Formatter.getFullWords(left);
-
-    const span = this.getSpanByPoint(now);
-
-    return new SchedulerState(
-      duration,
-      leftAsDigits,
-      leftAsFullWords,
-      current,
-      span
-    );
-  }
 }
 
 class SchedulerState {
-  constructor(duration, leftAsDigits, leftAsFullWords, current, span) {
-    this.current = current;
-    this.leftAsDigits = leftAsDigits;
-    this.leftAsFullWords = leftAsFullWords;
-    this.duration = duration;
+  constructor(scheduleDuration, scheduleCurrent, scheduleLeft, spanLeft, span) {
+    this.scheduleDuration = scheduleDuration;
+    this.scheduleCurrent = scheduleCurrent;
+    this.scheduleLeft = scheduleLeft;
+    this.spanLeft = spanLeft;
     this.span = span;
   }
 }

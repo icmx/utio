@@ -1,8 +1,8 @@
-const _pluralize = (value, [singular, plural]) =>
+const _pluralize = (value, singular, plural) =>
   value > 1 ? plural : singular;
 
-const _label = (value, forms) =>
-  value ? value + ' ' + _pluralize(value, forms) : '';
+const _label = (value, singular, plural) =>
+  value ? value + ' ' + _pluralize(value, singular, plural) : '';
 
 const _pad = (value, size) => value.toString().padStart(size, '0');
 
@@ -58,9 +58,9 @@ export class Formatter {
         break;
     }
 
-    const hoursLabel = _label(hours, ['hour', 'hours']);
-    const minutesLabel = _label(minutes, ['minute', 'minutes']);
-    const secondsLabel = _label(seconds, ['second', 'seconds']);
+    const hoursLabel = _label(hours, 'hour', 'hours');
+    const minutesLabel = _label(minutes, 'minute', 'minutes');
+    const secondsLabel = _label(seconds, 'second', 'seconds');
 
     return (
       hoursLabel +
