@@ -96,6 +96,10 @@
   background-color: var(--progress-bar);
 }
 
+.utio-progress::-webkit-progress-value {
+  transition: background-color 0.15s;
+}
+
 .utio-progress.utio-progress--before::-webkit-progress-value {
   background-color: var(--progress-value--before);
 }
@@ -119,6 +123,10 @@
 /*/ Coloring - for Mozilla ///////////////////////////////////////////*/
 .utio-progress {
   background-color: var(--progress-bar);
+}
+
+.utio-progress::-moz-progress-bar {
+  transition: background-color 0.15s;
 }
 
 .utio-progress.utio-progress--before::-moz-progress-bar {
