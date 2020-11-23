@@ -13,12 +13,14 @@ export class Scheduler {
   _events = {};
   _spans = [];
   _remindBefore = 0;
+  _intervalId = 0;
 
   _start = 0;
   _end = 0;
 
   _emit(type, ...args) {
     // Promises here, maybe?
+
     this._events[type].forEach((listener) => listener(...args));
   }
 
@@ -52,6 +54,8 @@ export class Scheduler {
   }
 
   read(config) {
+    this._spans = [];
+
     config.spans.forEach((item) => {
       const [startHours, startMinutes] = item.start.split(':');
       const [endHours, endMinutes] = item.end.split(':');
@@ -85,8 +89,7 @@ export class Scheduler {
     this._emit('spanchange', newState);
     this._emit('timechange', newState);
 
-
-    setInterval(() => {
+    this._intervalId = setInterval(() => {
       // That's not good enough, maybe multiple setTimeouts will help?
       // They can trigger avents by timeout, not by infinite ifs.
 
@@ -108,6 +111,10 @@ export class Scheduler {
         this._emit('spanchange', newState);
       }
     }, _EVERY_SECOND);
+  }
+
+  stop() {
+    clearInterval(this._intervalId);
   }
 }
 

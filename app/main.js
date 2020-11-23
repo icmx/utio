@@ -1,12 +1,25 @@
 import { Formatter } from './classes/formatter.class.js';
 import { Scheduler } from './classes/scheduler.class.js';
 import { Notifier } from './classes/notifier.class.js';
+import { Storage } from './classes/storage.class.js';
 
 const header = document.getElementById('utio-header');
 const progress = document.getElementById('utio-progress');
 const output = document.getElementById('utio-output');
+const selectConfig = document.getElementById('utio-select-config');
 
-let scheduler = new Scheduler();
+const scheduler = new Scheduler();
+const storage = new Storage('utio');
+
+const load = (file) => {
+  fetch(`config/${file}`)
+    .then((response) => response.json())
+    .then((config) => {
+      scheduler.stop();
+      scheduler.read(config);
+      scheduler.run();
+    });
+};
 
 scheduler.addEventListener('timechange', (state) => {
   document.title = `${Formatter.getDigits(state.scheduleLeft)} - utio`;
@@ -31,9 +44,11 @@ scheduler.addEventListener('spanchange', (state) => {
   progress.className = `utio-progress utio-progress--${state.span.type}`;
 });
 
-fetch('config/work.json')
-  .then((response) => response.json())
-  .then((config) => {
-    scheduler.read(config);
-    scheduler.run();
-  });
+const currentConfigName = storage.getItem('config') ?? 'work.json';
+selectConfig.value = currentConfigName;
+load(currentConfigName);
+
+selectConfig.addEventListener('change', () => {
+  storage.setItem('config', selectConfig.value);
+  load(selectConfig.value);
+});

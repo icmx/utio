@@ -1,8 +1,8 @@
 .utio {
   --progress-border-radius: 0.25rem;
-  --font-family: 0;
-  --font-size: 0;
-  --font-weight: 0;
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+  --font-size: 14pt;
+  --font-weight: 400;
 
   --progress-value--before: #7ed321;
   --progress-value--running: #12a5ed;
@@ -175,4 +175,23 @@
 
 .utio-nowrap {
   white-space: nowrap;
+}
+
+.utio-select-config {
+  color: var(--text-link);
+
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  padding: 0;
+  margin: 0;
 }
