@@ -1,5 +1,9 @@
-const _pluralize = (value, singular, plural) =>
-  value > 1 ? plural : singular;
+const _SECOND = 1e3;
+const _MINUTE = _SECOND * 60;
+const _HOUR = _MINUTE * 60;
+const _DAY = _HOUR * 24;
+
+const _pluralize = (value, singular, plural) => (value > 1 ? plural : singular);
 
 const _label = (value, singular, plural) =>
   value ? value + ' ' + _pluralize(value, singular, plural) : '';
@@ -72,16 +76,23 @@ export class Formatter {
   }
 
   static getDigits(time) {
-    const SECOND = 1e3;
-    const MINUTE = SECOND * 60;
-    const HOUR = MINUTE * 60;
-    const DAY = HOUR * 24;
-
     const milliseconds = time;
-    const hours = ((milliseconds % DAY) / HOUR) | 0;
-    const minutes = ((milliseconds % HOUR) / MINUTE) | 0;
-    const seconds = ((milliseconds % MINUTE) / SECOND) | 0;
+    const hours = ((milliseconds % _DAY) / _HOUR) | 0;
+    const minutes = ((milliseconds % _HOUR) / _MINUTE) | 0;
+    const seconds = ((milliseconds % _MINUTE) / _SECOND) | 0;
 
     return `${_pad(hours, 2)}:${_pad(minutes, 2)}:${_pad(seconds, 2)}`;
+  }
+
+  static getHours(time) {
+    const rounded = Math.round(time / 1000 / 60 / 60);
+
+    return `${rounded} ${_pluralize(rounded, 'hour', 'hours')}`;
+  }
+
+  static getMinutes(time) {
+    const rounded = Math.round(time / 1000 / 60);
+
+    return `${rounded} ${_pluralize(rounded, 'minute', 'minutes')}`;
   }
 }

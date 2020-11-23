@@ -28,13 +28,13 @@ scheduler.addEventListener('timechange', (state) => {
   progress.max = state.scheduleDuration;
 
   output.value = `${Formatter.getDigits(
-    state.scheduleLeft
-  )} left (${Formatter.getDigits(state.spanLeft)} until next)`;
+    state.spanLeft
+  )} until next, ${Formatter.getHours(state.scheduleLeft)} left`;
 });
 
 scheduler.addEventListener('remindspanchange', (state) => {
   Notifier.show(`${state.span.title} will end soon!`, {
-    body: `It's ${Formatter.getFullWords(state.spanLeft)} before it ends.`,
+    body: `It's ${Formatter.getMinutes(state.spanLeft)} before it ends.`,
   });
 });
 
