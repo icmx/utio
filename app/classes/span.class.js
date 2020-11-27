@@ -35,8 +35,8 @@ export class Span {
 
   static rest = Object.freeze(new Span('Rest', undefined, undefined, 'rest'));
 
-  static getBeltItemType(span) {
-    return SpanTypesAsBeltTypesMap.get(span.type) ?? 'unknown';
+  static getBeltItemType(spanType) {
+    return SpanTypesAsBeltTypesMap.get(spanType) ?? 'unknown';
   }
 
   includes(time) {

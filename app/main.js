@@ -49,7 +49,8 @@ scheduler.addEventListener('remindspanchange', (state) => {
 scheduler.addEventListener('spanchange', (state) => {
   header.textContent = `${state.span.title}`;
 
-  belt.setType(Span.getBeltItemType(state.span));
+  // i'm not sure it should be done like this
+  // belt.setType(Span.getBeltItemType(state.span.type));
 });
 
 const currentConfig = storage.getItem('config') ?? 'work.json';

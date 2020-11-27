@@ -50,7 +50,7 @@ export class Belt {
     [...this._element.childNodes].forEach((node) => node.remove());
 
     options.items.forEach((item, index) => {
-      const beltItem = new BeltItem(item.value, item.max);
+      const beltItem = new BeltItem(item.value, item.max, item.type);
 
       this._beltItems.push(beltItem);
       this._element.appendChild(beltItem.itemElement);
