@@ -1,0 +1,158 @@
+@import url('./belt/belt.css');
+
+.utio {
+  --progress-border-radius: 0.25rem;
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+  --font-size: 14pt;
+  --font-weight: 400;
+
+  --color-primary: #12a5ed;
+  --color-success: #7ed321;
+  --color-warning: #ffca00;
+  --color-failure: #f5325b;
+}
+
+@media (prefers-color-scheme: light) {
+  .utio {
+    --text-main: #000000;
+    --text-mute: #606060;
+    --text-link: #065fd4;
+
+    --background: #f9f9f9;
+
+    --progress-bar: #cccccc;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .utio {
+    --text-main: #606060;
+    --text-mute: #303030;
+    --text-link: #3ea6ff;
+
+    --background: #181818;
+
+    --progress-bar: #303030;
+  }
+}
+
+.utio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1400px;
+  height: 100vh;
+
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14pt;
+
+  color: var(--text-main);
+  background-color: var(--background);
+
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.utio-main {
+  min-height: 60%;
+  padding: 4vh;
+}
+
+.utio-header {
+  font-size: 12vw;
+  font-weight: 700;
+
+  margin-bottom: 2rem;
+}
+
+.utio-link {
+  color: var(--text-link);
+
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.utio-output {
+  display: block;
+  width: 100%;
+
+  font-size: 1.25em;
+  margin-top: 2rem;
+}
+
+.utio-footer {
+  margin-top: 4rem;
+  font-size: 1em;
+}
+
+.utio-footer {
+  color: var(--text-mute);
+}
+
+.utio-nowrap {
+  white-space: nowrap;
+}
+
+.utio-select {
+  color: var(--text-link);
+
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+}
+
+.utio-legend {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+
+  margin: 16px 0;
+}
+
+.utio-legend-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.utio-legend-item__bulb {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  margin-right: 8px;
+}
+
+.utio-legend-item--primary > .utio-legend-item__bulb {
+  background-color: var(--color-primary);
+}
+
+.utio-legend-item--success > .utio-legend-item__bulb {
+  background-color: var(--color-success);
+}
+
+.utio-legend-item--warning > .utio-legend-item__bulb {
+  background-color: var(--color-warning);
+}
+
+.utio-legend-item--failure > .utio-legend-item__bulb {
+  background-color: var(--color-failure);
+}
+
+.utio-legend-item__text {
+  font-size: 8pt;
+}

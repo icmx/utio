@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="app/style.css" />
     <script type="module" src="app/main.js"></script>
     <title>Initialization... - utio</title>
   </head>
@@ -14,7 +14,21 @@
     <main class="utio-main">
       <header class="utio-header" id="utio-header">ᕕ( ᐛ )ᕗ</header>
       <form class="utio-form">
-        <progress class="utio-progress" id="utio-progress"></progress>
+        <div class="utio-legend">
+          <div class="utio-legend-item utio-legend-item--success">
+            <div class="utio-legend-item__bulb"></div>
+            <div class="utio-legend-item__text">Preparation or Ending</div>
+          </div>
+          <div class="utio-legend-item utio-legend-item--primary">
+            <div class="utio-legend-item__bulb"></div>
+            <div class="utio-legend-item__text">Active</div>
+          </div>
+          <div class="utio-legend-item utio-legend-item--warning">
+            <div class="utio-legend-item__bulb"></div>
+            <div class="utio-legend-item__text">Break</div>
+          </div>
+        </div>
+        <div class="belt" id="utio-belt"></div>
         <output class="utio-output" id="utio-output">
           Initialization, please wait...
         </output>
@@ -27,11 +41,12 @@
             by <a class="utio-link" href="https://github.com/icmx">@icmx</a>
           </span>
           <br />
-          using
-          <select class="utio-select-config" id="utio-select-config">
+          uses
+          <select class="utio-select" id="utio-select">
             <option value="class.json">class.json</option>
             <option value="work.json">work.json</option>
           </select>
+          schedule
         </p>
       </footer>
     </main>

@@ -1,15 +1,18 @@
 import { Formatter } from './classes/formatter.class.js';
 import { Scheduler } from './classes/scheduler.class.js';
+import { Span } from './classes/span.class.js';
 import { Notifier } from './classes/notifier.class.js';
 import { Storage } from './classes/storage.class.js';
 
+import { Belt } from './belt/belt.js';
+
 const header = document.getElementById('utio-header');
-const progress = document.getElementById('utio-progress');
 const output = document.getElementById('utio-output');
-const selectConfig = document.getElementById('utio-select-config');
+const select = document.getElementById('utio-select');
 
 const scheduler = new Scheduler();
 const storage = new Storage('utio');
+const belt = new Belt();
 
 const load = (file) => {
   fetch(`config/${file}`)
@@ -17,6 +20,12 @@ const load = (file) => {
     .then((config) => {
       scheduler.stop();
       scheduler.read(config);
+
+      belt.init(
+        document.getElementById('utio-belt'),
+        scheduler.getBeltOptions()
+      );
+
       scheduler.run();
     });
 };
@@ -24,12 +33,11 @@ const load = (file) => {
 scheduler.addEventListener('timechange', (state) => {
   document.title = `${Formatter.getDigits(state.scheduleLeft)} - utio`;
 
-  progress.value = state.scheduleCurrent;
-  progress.max = state.scheduleDuration;
-
   output.value = `${Formatter.getDigits(
     state.spanLeft
-  )} until next, ${Formatter.getHours(state.scheduleLeft)} left`;
+  )} before next, ~${Formatter.getHours(state.scheduleLeft)} until end.`;
+
+  belt.setValue(state.scheduleCurrent);
 });
 
 scheduler.addEventListener('remindspanchange', (state) => {
@@ -41,14 +49,14 @@ scheduler.addEventListener('remindspanchange', (state) => {
 scheduler.addEventListener('spanchange', (state) => {
   header.textContent = `${state.span.title}`;
 
-  progress.className = `utio-progress utio-progress--${state.span.type}`;
+  belt.setType(Span.getBeltItemType(state.span));
 });
 
-const currentConfigName = storage.getItem('config') ?? 'work.json';
-selectConfig.value = currentConfigName;
-load(currentConfigName);
+const currentConfig = storage.getItem('config') ?? 'work.json';
+select.value = currentConfig;
+load(currentConfig);
 
-selectConfig.addEventListener('change', () => {
-  storage.setItem('config', selectConfig.value);
-  load(selectConfig.value);
+select.addEventListener('change', () => {
+  storage.setItem('config', select.value);
+  load(select.value);
 });

@@ -37,7 +37,7 @@ export class Scheduler {
     } else {
       const now = Date.now();
 
-      const scheduleDuration = this._end - this._start;
+      const scheduleDuration = this._duration;
       const scheduleLeft = this._end - now;
       const scheduleCurrent = scheduleDuration - scheduleLeft;
 
@@ -74,6 +74,7 @@ export class Scheduler {
 
     this._start = this._spans[0].start;
     this._end = this._spans[this._spans.length - 1].end;
+    this._duration = this._end - this._start;
   }
 
   addEventListener(type, listener) {
@@ -116,9 +117,22 @@ export class Scheduler {
   stop() {
     clearInterval(this._intervalId);
   }
+
+  getBeltOptions() {
+    let items = [];
+    let max = this._duration;
+
+    items = this._spans.map((span) => ({
+      value: 0,
+      max: span.duration,
+      type: Span.getBeltItemType(span.type),
+    }));
+
+    return { items: items, max: max };
+  }
 }
 
-class SchedulerState {
+export class SchedulerState {
   constructor(scheduleDuration, scheduleCurrent, scheduleLeft, spanLeft, span) {
     this.scheduleDuration = scheduleDuration;
     this.scheduleCurrent = scheduleCurrent;

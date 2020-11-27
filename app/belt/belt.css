@@ -1,0 +1,46 @@
+.belt {
+  height: 56px;
+
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2px;
+
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.belt-item {
+  height: 100%;
+
+  background-color: var(--progress-bar);
+}
+
+.belt-item .belt-item__value {
+  height: 100%;
+
+  transition: background-color 2s;
+}
+
+.belt-item--primary .belt-item__value {
+  background-color: var(--color-primary);
+}
+
+.belt-item--success .belt-item__value {
+  background-color: var(--color-success);
+}
+
+.belt-item--warning .belt-item__value {
+  background-color: var(--color-warning);
+}
+
+.belt-item--failure .belt-item__value {
+  background-color: var(--color-failure);
+}
+
+.belt-item--comment .belt-item__value {
+  background-color: var(--color-comment);
+}
+
+.belt-item--unknown .belt-item__value {
+  background-color: var(--color-unknown);
+}
