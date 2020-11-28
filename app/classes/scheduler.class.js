@@ -31,12 +31,11 @@ export class Scheduler {
   _getState() {
     const now = Date.now();
     const span = this._getSpanByTime(now);
+    const spanIndex = this._spans.indexOf(span);
 
     if (span.type === 'rest') {
-      return new SchedulerState(0, 0, 0, 0, span);
+      return new SchedulerState(0, 0, 0, -1, 0, span);
     } else {
-      const now = Date.now();
-
       const scheduleDuration = this._duration;
       const scheduleLeft = this._end - now;
       const scheduleCurrent = scheduleDuration - scheduleLeft;
@@ -47,13 +46,14 @@ export class Scheduler {
         scheduleDuration,
         scheduleCurrent,
         scheduleLeft,
+        spanIndex,
         spanLeft,
         span
       );
     }
   }
 
-  read(config) {
+  init(config) {
     this._spans = [];
 
     config.spans.forEach((item) => {
@@ -133,10 +133,18 @@ export class Scheduler {
 }
 
 export class SchedulerState {
-  constructor(scheduleDuration, scheduleCurrent, scheduleLeft, spanLeft, span) {
+  constructor(
+    scheduleDuration,
+    scheduleCurrent,
+    scheduleLeft,
+    spanIndex,
+    spanLeft,
+    span
+  ) {
     this.scheduleDuration = scheduleDuration;
     this.scheduleCurrent = scheduleCurrent;
     this.scheduleLeft = scheduleLeft;
+    this.spanIndex = spanIndex;
     this.spanLeft = spanLeft;
     this.span = span;
   }

@@ -21,6 +21,22 @@
   transition: background-color 2s;
 }
 
+.belt-item--selected .belt-item__value {
+  background-size: 112px 112px;
+  background-image: linear-gradient(
+    45deg,
+    #ffffff33 25%,
+    transparent 25%,
+    transparent 50%,
+    #ffffff33 50%,
+    #ffffff33 75%,
+    transparent 75%,
+    transparent
+  );
+
+  animation: selected 1s linear infinite;
+}
+
 .belt-item--primary .belt-item__value {
   background-color: var(--color-primary);
 }
@@ -43,4 +59,14 @@
 
 .belt-item--unknown .belt-item__value {
   background-color: var(--color-unknown);
+}
+
+@keyframes selected {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 224px 112px;
+  }
 }

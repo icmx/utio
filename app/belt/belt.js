@@ -98,4 +98,16 @@ export class Belt {
       this.setItemType(index, value);
     });
   }
+
+  selectItem(itemIndex) {
+    const beltItem = this.getItemByIndex(itemIndex);
+
+    beltItem.itemElement.className = `belt-item belt-item--${beltItem.type} belt-item--selected`;
+  }
+
+  resetSelection() {
+    this._beltItems.forEach((beltItem) => {
+      beltItem.itemElement.className = `belt-item belt-item--${beltItem.type}`;
+    });
+  }
 }

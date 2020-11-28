@@ -118,7 +118,7 @@
 .utio-legend {
   display: flex;
   justify-content: flex-end;
-  gap: 24px;
+  gap: 18px;
 
   margin: 16px 0;
 }
@@ -134,7 +134,7 @@
 
   border-radius: 50%;
 
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .utio-legend-item--primary > .utio-legend-item__bulb {

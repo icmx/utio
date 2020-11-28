@@ -19,7 +19,7 @@ const load = (file) => {
     .then((response) => response.json())
     .then((config) => {
       scheduler.stop();
-      scheduler.read(config);
+      scheduler.init(config);
 
       belt.init(
         document.getElementById('utio-belt'),
@@ -49,8 +49,11 @@ scheduler.addEventListener('remindspanchange', (state) => {
 scheduler.addEventListener('spanchange', (state) => {
   header.textContent = `${state.span.title}`;
 
-  // i'm not sure it should be done like this
-  // belt.setType(Span.getBeltItemType(state.span.type));
+  belt.resetSelection();
+
+  if (state.spanIndex > -1) {
+    belt.selectItem(state.spanIndex);
+  }
 });
 
 const currentConfig = storage.getItem('config') ?? 'work.json';
