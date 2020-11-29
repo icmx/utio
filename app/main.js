@@ -56,7 +56,7 @@ scheduler.addEventListener('spanchange', (state) => {
   }
 });
 
-const currentConfig = storage.getItem('config') ?? 'work.json';
+const currentConfig = storage.getItem('config') ?? 'work-local.json';
 select.value = currentConfig;
 load(currentConfig);
 
