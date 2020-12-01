@@ -108,7 +108,7 @@ export class Scheduler {
         this._emit('remindspanchange', newState);
       }
 
-      if (oldState.span.type !== newState.span.type) {
+      if (oldState.spanIndex !== newState.spanIndex) {
         this._emit('spanchange', newState);
       }
     }, _EVERY_SECOND);
