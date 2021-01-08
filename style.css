@@ -1,15 +1,9 @@
 @import url('./belt/belt.css');
 
 .utio {
-  --progress-border-radius: 0.25rem;
   --font-family: 'system-ui', sans-serif;
-  --font-size: 14pt;
+  --font-size: 1rem;
   --font-weight: 400;
-
-  --color-primary: #12a5ed;
-  --color-success: #7ed321;
-  --color-warning: #ffca00;
-  --color-failure: #f5325b;
 }
 
 @media (prefers-color-scheme: light) {
@@ -20,7 +14,11 @@
 
     --background: #f9f9f9;
 
-    --progress-bar: #cccccc;
+    --primary: #12a5ed;
+    --success: #7ed321;
+    --warning: #ffca00;
+    --failure: #f5325b;
+    --unknown: #cccccc;
   }
 }
 
@@ -32,7 +30,11 @@
 
     --background: #181818;
 
-    --progress-bar: #303030;
+    --primary: #12a5ed;
+    --success: #7ed321;
+    --warning: #ffca00;
+    --failure: #f5325b;
+    --unknown: #303030;
   }
 }
 
@@ -138,21 +140,21 @@
 }
 
 .utio-legend-item--primary > .utio-legend-item__bulb {
-  background-color: var(--color-primary);
+  background-color: var(--primary);
 }
 
 .utio-legend-item--success > .utio-legend-item__bulb {
-  background-color: var(--color-success);
+  background-color: var(--success);
 }
 
 .utio-legend-item--warning > .utio-legend-item__bulb {
-  background-color: var(--color-warning);
+  background-color: var(--warning);
 }
 
 .utio-legend-item--failure > .utio-legend-item__bulb {
-  background-color: var(--color-failure);
+  background-color: var(--failure);
 }
 
 .utio-legend-item__text {
-  font-size: 8pt;
+  font-size: 0.75rem;
 }

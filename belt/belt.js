@@ -1,6 +1,8 @@
-const perc = (part, total) => {
+const _pct = (part, total) => {
   if (part > total) {
-    throw new Error(`incorrect: part === ${part} > total === ${total}!`);
+    throw new Error(
+      `incorrect: part === ${part} > total === ${total}!`
+    );
   } else {
     return (100 * part) / total;
   }
@@ -68,14 +70,14 @@ export class Belt {
     const beltItem = this.getItemByIndex(itemIndex);
     beltItem.max = value;
 
-    beltItem.itemElement.style.width = `${perc(value, this._max)}%`;
+    beltItem.itemElement.style.width = `${_pct(value, this._max)}%`;
   }
 
   setItemValue(itemIndex, value) {
     const beltItem = this.getItemByIndex(itemIndex);
     beltItem.value = value;
 
-    beltItem.valueElement.style.width = `${perc(value, beltItem.max)}%`;
+    beltItem.valueElement.style.width = `${_pct(value, beltItem.max)}%`;
   }
 
   setItemType(itemIndex, value) {

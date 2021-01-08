@@ -1,4 +1,14 @@
 .belt {
+  --belt-primary: var(--primary, #12a5ed);
+  --belt-success: var(--success, #7ed321);
+  --belt-warning: var(--warning, #ffca00);
+  --belt-failure: var(--failure, #f5325b);
+
+  --belt-unknown: var(--unknown, #ffffff);
+
+  --belt-tint: #ffffff06;
+  --belt-tint-value: #ffffff33;
+
   height: 3.5rem;
 
   display: flex;
@@ -12,18 +22,18 @@
 .belt-item {
   height: 100%;
 
-  background-color: var(--progress-bar);
+  background-color: var(--belt-unknown);
 }
 
 .belt-item--selected {
   background-size: 7rem 7rem;
   background-image: linear-gradient(
     45deg,
-    #ffffff06 25%,
+    var(--belt-tint) 25%,
     transparent 25%,
     transparent 50%,
-    #ffffff06 50%,
-    #ffffff06 75%,
+    var(--belt-tint) 50%,
+    var(--belt-tint) 75%,
     transparent 75%,
     transparent
   );
@@ -31,21 +41,21 @@
   animation: selected 1s linear infinite;
 }
 
-.belt-item .belt-item__value {
+.belt-item > .belt-item__value {
   height: 100%;
 
   transition: background-color 2s;
 }
 
-.belt-item--selected .belt-item__value {
+.belt-item--selected > .belt-item__value {
   background-size: 7rem 7rem;
   background-image: linear-gradient(
     45deg,
-    #ffffff33 25%,
+    var(--belt-tint-value) 25%,
     transparent 25%,
     transparent 50%,
-    #ffffff33 50%,
-    #ffffff33 75%,
+    var(--belt-tint-value) 50%,
+    var(--belt-tint-value) 75%,
     transparent 75%,
     transparent
   );
@@ -53,28 +63,20 @@
   animation: selected 1s linear infinite;
 }
 
-.belt-item--primary .belt-item__value {
-  background-color: var(--color-primary);
+.belt-item--primary > .belt-item__value {
+  background-color: var(--belt-primary);
 }
 
-.belt-item--success .belt-item__value {
-  background-color: var(--color-success);
+.belt-item--success > .belt-item__value {
+  background-color: var(--belt-success);
 }
 
-.belt-item--warning .belt-item__value {
-  background-color: var(--color-warning);
+.belt-item--warning > .belt-item__value {
+  background-color: var(--belt-warning);
 }
 
-.belt-item--failure .belt-item__value {
-  background-color: var(--color-failure);
-}
-
-.belt-item--comment .belt-item__value {
-  background-color: var(--color-comment);
-}
-
-.belt-item--unknown .belt-item__value {
-  background-color: var(--color-unknown);
+.belt-item--failure > .belt-item__value {
+  background-color: var(--belt-failure);
 }
 
 @keyframes selected {
