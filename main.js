@@ -1,6 +1,5 @@
 import { Formatter } from './classes/formatter.class.js';
 import { Scheduler } from './classes/scheduler.class.js';
-import { Span } from './classes/span.class.js';
 import { Notifier } from './classes/notifier.class.js';
 import { Storage } from './classes/storage.class.js';
 
