@@ -44,9 +44,9 @@
   max-width: 85rem;
   height: 100vh;
 
-  font-family: 'Segoe UI', 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 1.25rem;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
 
   color: var(--text-main);
   background-color: var(--background);
@@ -64,6 +64,8 @@
   font-weight: 700;
 
   margin-bottom: 2rem;
+
+  color: var(--text-mute);
 }
 
 .utio-link {
