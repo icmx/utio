@@ -1,7 +1,7 @@
-import { Formatter } from './classes/formatter.class.js';
-import { Scheduler } from './classes/scheduler.class.js';
-import { Notifier } from './classes/notifier.class.js';
-import { Storage } from './classes/storage.class.js';
+import { Formatter } from './app/classes/formatter.class.js';
+import { Scheduler } from './app/classes/scheduler.class.js';
+import { Notifier } from './app/classes/notifier.class.js';
+import { Storage } from './app/classes/storage.class.js';
 
 import { Belt } from './belt/belt.js';
 
@@ -14,7 +14,7 @@ const storage = new Storage('utio');
 const belt = new Belt();
 
 const load = (file) => {
-  fetch(`config/${file}`)
+  fetch(`app/config/${file}`)
     .then((response) => response.json())
     .then((config) => {
       scheduler.stop();
@@ -34,14 +34,18 @@ scheduler.addEventListener('timechange', (state) => {
 
   output.value = `${Formatter.getDigits(
     state.spanLeft
-  )} before next, ~${Formatter.getHours(state.scheduleLeft)} until end.`;
+  )} before next, ~${Formatter.getHours(
+    state.scheduleLeft
+  )} until end.`;
 
   belt.setValue(state.scheduleCurrent);
 });
 
 scheduler.addEventListener('remindspanchange', (state) => {
   Notifier.show(`${state.span.title} will end soon!`, {
-    body: `It's ${Formatter.getMinutes(state.spanLeft)} before it ends.`,
+    body: `It's ${Formatter.getMinutes(
+      state.spanLeft
+    )} before it ends.`,
   });
 });
 
