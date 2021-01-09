@@ -1,0 +1,18 @@
+{
+  "name": "utio",
+  "version": "0.1.0",
+  "description": "Simple tool to display time left on job, done framework-free",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icmx/utio.git"
+  },
+  "keywords": [
+    "vanilla-js"
+  ],
+  "author": "icmx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/icmx/utio/issues"
+  },
+  "homepage": "https://github.com/icmx/utio#readme"
+}
