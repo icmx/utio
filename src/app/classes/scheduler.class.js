@@ -1,5 +1,5 @@
-import { Span } from './span.class.js';
-import { Time } from './time.class.js';
+import { Span } from './span.class';
+import { Time } from './time.class';
 
 const _EVERY_SECOND = 1000;
 

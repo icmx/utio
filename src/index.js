@@ -1,17 +1,19 @@
-import { Formatter } from './app/classes/formatter.class.js';
-import { Scheduler } from './app/classes/scheduler.class.js';
-import { Notifier } from './app/classes/notifier.class.js';
-import { Storage } from './app/classes/storage.class.js';
+import './app/style.css';
+import { Formatter } from './app/classes/formatter.class';
+import { Scheduler } from './app/classes/scheduler.class';
+import { Notifier } from './app/classes/notifier.class';
+import { Storage } from './app/classes/storage.class';
 
+import './belt/belt.css';
 import { Belt } from './belt/belt.js';
-
-const header = document.getElementById('utio-header');
-const output = document.getElementById('utio-output');
-const select = document.getElementById('utio-select');
 
 const scheduler = new Scheduler();
 const storage = new Storage('utio');
 const belt = new Belt();
+
+const header = document.getElementById('utio-header');
+const output = document.getElementById('utio-output');
+const select = document.getElementById('utio-select');
 
 const load = (file) => {
   fetch(`app/config/${file}`)
