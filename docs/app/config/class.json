@@ -1,0 +1,18 @@
+{
+  "spans": [
+    { "title": "Startup",   "start": "07:55", "end": "08:05", "type": "before" },
+    { "title": "1st Class", "start": "08:05", "end": "09:35", "type": "running" },
+    { "title": "1st Break", "start": "09:35", "end": "09:50", "type": "hanging" },
+    { "title": "2nd Class", "start": "09:50", "end": "11:20", "type": "running" },
+    { "title": "2nd Break", "start": "11:20", "end": "11:35", "type": "hanging" },
+    { "title": "3rd Class", "start": "11:35", "end": "13:05", "type": "running" },
+    { "title": "3rd Break", "start": "13:05", "end": "13:35", "type": "hanging" },
+    { "title": "4th Class", "start": "13:35", "end": "15:05", "type": "running" },
+    { "title": "4th Break", "start": "15:05", "end": "15:15", "type": "hanging" },
+    { "title": "5th Class", "start": "15:15", "end": "16:45", "type": "running" },
+    { "title": "5th Break", "start": "16:45", "end": "16:55", "type": "hanging" },
+    { "title": "6th Class", "start": "16:55", "end": "18:25", "type": "running" },
+    { "title": "Shutdown",  "start": "18:25", "end": "18:35", "type": "after" }
+  ],
+  "remindBefore": 5
+}
