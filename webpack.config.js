@@ -26,15 +26,36 @@ const baseConfig = {
     path: paths.dist,
     publicPath: '/utio',
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendors',
+          test: /node_modules/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: [['@babel/plugin-proposal-class-properties']],
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: { esmodules: true },
+                  bugfixes: true,
+                  shippedProposals: true,
+                },
+              ],
+            ],
           },
         },
       },
@@ -56,18 +77,7 @@ const baseConfig = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: {
-                  cssnano: {
-                    preset: [
-                      'default',
-                      {
-                        discardComments: {
-                          removeAll: true,
-                        },
-                      },
-                    ],
-                  },
-                },
+                plugins: ['postcss-csso'],
               },
             },
           },
@@ -82,7 +92,6 @@ const baseConfig = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-
     new MiniCssExtractPlugin({
       filename: '[name].min.css',
     }),
@@ -101,6 +110,7 @@ const baseConfig = {
       filename: `./index.html`,
     }),
   ],
+  target: 'web',
 };
 
 const serveConfig = merge(baseConfig, {
