@@ -41,9 +41,14 @@
           <br />
           uses
           <select class="utio-select" id="utio-select">
-            <option value="class.json">class.json</option>
-            <option value="work-local.json">work-local.json</option>
-            <option value="work-remote.json">work-remote.json</option>
+            <optgroup label="current">
+              <option value="class.json">class.json</option>
+              <option value="work-current.json">work-current.json</option>
+            </optgroup>
+            <optgroup label="legacy">
+              <option value="work-legacy-local.json">work-legacy-local.json</option>
+              <option value="work-legacy-remote.json">work-legacy-remote.json</option>
+            </optgroup>
           </select>
         </p>
       </footer>

@@ -1,0 +1,11 @@
+{
+  "spans": [
+    { "title": "Startup /OL", "start": "15:00", "end": "16:00", "type": "before" },
+    { "title": "Startup /MP", "start": "16:00", "end": "17:00", "type": "running" },
+    { "title": "Startup /MW", "start": "17:00", "end": "18:00", "type": "running" },
+    { "title": "First Half", "start": "18:00", "end": "20:00", "type": "running" },
+    { "title": "Lunch", "start": "20:00", "end": "21:00", "type": "before" },
+    { "title": "Last Half", "start": "21:00", "end": "23:59", "type": "before" }
+  ],
+  "remindBefore": 5
+}
